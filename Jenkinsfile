@@ -5,15 +5,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    bat 'docker login -u ruhi004 -p Ruhi@2004'
-                    
-                    // Build Docker image
-                    bat 'docker build -t w9-dh-app:latest .'
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                        bat "docker login -u %USER% -p %PASS%"
+                    }
 
-                    // Tag for Docker Hub
-                    bat 'docker tag w9-dh-app:latest ruhi004/w9-dh-app:latest'
-
-                    // Push to Docker Hub
+                    bat 'docker build -t w9-dd-app:latest .'
+                    bat 'docker tag w9-dd-app:latest ruhi004/w9-dh-app:latest'
                     bat 'docker push ruhi004/w9-dh-app:latest'
                 }
             }

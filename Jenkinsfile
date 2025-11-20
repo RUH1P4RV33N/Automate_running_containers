@@ -33,3 +33,12 @@ pipeline {
         }
     }
 }
+
+//  minikube delete --all --purge
+//  minikube start --driver=docker
+//     minikube status
+//     kubectl apply -f my-kube1-deployment.yaml 
+//     kubectl apply -f my-kube1-service.yaml
+//     minikube dashboard --url
+//     kubectl get pods
+//     kubectl get service

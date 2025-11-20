@@ -6,38 +6,32 @@ pipeline {
             steps {
                 script {
                     bat 'docker login -u ruhi004 -p Ruhi@2004'
-                    // Build and push Docker image
+                    
+                    // Build Docker image
                     bat 'docker build -t w9-dh-app:latest .'
+
+                    // Tag for Docker Hub
                     bat 'docker tag w9-dh-app:latest ruhi004/w9-dh-app:latest'
+
+                    // Push to Docker Hub
                     bat 'docker push ruhi004/w9-dh-app:latest'
                 }
             }
         }
+
         stage('Test') {
             steps {
-                script {
-                    echo 'Running tests...'
-                }
+                echo 'Running tests...'
             }
         }
+
         stage('Deploy') {
             steps {
                 script {
-                    // Delete and start Minikube cluster
-                    bat 'minikube delete'
                     bat 'minikube start'
-                    
-                    // Enable the dashboard addon
-                    bat 'minikube addons enable dashboard'
-                    
-                    // Apply Kubernetes resources
                     bat 'kubectl apply -f my-kube1-deployment.yaml'
                     bat 'kubectl apply -f my-kube1-service.yaml'
-                    
-                    // Expose the Kubernetes Dashboard service
-                    bat 'minikube dashboard'
-                    
-                    echo 'Deploying application...'
+                    echo 'Deployed successfully to Minikube!'
                 }
             }
         }

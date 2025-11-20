@@ -7,7 +7,7 @@ pipeline {
                 script {
                     bat 'docker login -u ruhi004 -p Ruhi@2004'
                     // Build and push Docker image
-                    bat 'docker build -t w9-dd-app:latest .'
+                    bat 'docker build -t w9-dh-app:latest .'
                     bat 'docker tag w9-dd-app:latest ruhi004/w9-dh-app:latest'
                     bat 'docker push ruhi004/w9-dh-app:latest'
                 }
